@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Récupérer le code depuis le dépôt Git
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Construire le projet avec Maven
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Exécuter les tests Maven
+                sh 'mvn test'
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions à effectuer en cas de succès
+            echo 'Build and tests passed. Ready for deployment!'
+        }
+
+        failure {
+            // Actions à effectuer en cas d'échec
+            echo 'Build or tests failed. Check the logs for details.'
+        }
+    }
+}
