@@ -29,5 +29,10 @@ pipeline {
             // Actions à effectuer en cas de succès
             echo 'Build and tests passed. Ready for deployment!'
         }
+
+        failure {
+            // Actions à effectuer en cas d'échec
+            echo 'Build or tests failed. Check the logs for details.'
+        }
     }
 }
